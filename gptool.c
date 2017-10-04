@@ -31,9 +31,10 @@ int main(int argc, char *argv[])
     }
 
     header = readGPTHeader(inputFile);
-
     printGPTHeader(header, stdout);
   }
+
+  return 0;
 }
 
 GPTHeader readGPTHeader(FILE* f)
@@ -84,7 +85,6 @@ void printGPTHeader(const GPTHeader h, FILE* f)
 }
 
 
-
 /*PRINT HEX STRING FROM DATA*/
 void printHex(FILE* f, const void* data, const unsigned int len)
 {
@@ -94,19 +94,3 @@ void printHex(FILE* f, const void* data, const unsigned int len)
   for(; i < len; i++)
     fprintf(f, " %02X", ((unsigned char*) data)[i]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
