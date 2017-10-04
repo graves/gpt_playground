@@ -9,21 +9,31 @@ int main(int argc, char *argv[])
   FILE *inputFile = NULL;
   GPTHeader header;
 
-  if(argc != 2) {
-    printf("%s %s %s", "Usage:", argv[0], "<binary>");
+  if(argc < 2) {
+    /* Display all usage here eventually */
+    printf("%s\n", "Usage: blah blah blah");
     return 1;
   }
 
-  inputFile = fopen(argv[1], "rb");
+  if(strcmp(argv[1], "--print-header") == 0) {
 
-  if(inputFile == NULL) {
-    printf("%s %s", "Unable to open input file:", argv[1]);
-    return 1;
+    if(argc != 3) {
+      printf("%s %s %s %s\n", "Usage:", argv[0], 
+          "--print-header", "<GPT_HEADER>");
+      return 1;
+    }
+
+    inputFile = fopen(argv[2], "rb");
+
+    if(inputFile == NULL) {
+      printf("%s %s\n", "Unable to open input file:", argv[2]);
+      return 1;
+    }
+
+    header = readGPTHeader(inputFile);
+
+    printGPTHeader(header, stdout);
   }
-
-  header = readGPTHeader(inputFile);
-
-  printGPTHeader(header, stdout);
 }
 
 GPTHeader readGPTHeader(FILE* f)
@@ -68,6 +78,7 @@ void printGPTHeader(const GPTHeader h, FILE* f)
       "CRC32 of Partition Array");
 
   printHex(f, &h.crc_part, sizeof(uint32_t));
+  printf("\n");
 
   /* DO STUFF WITH TRAILING BYTES IF THIS WERKS */
 }
