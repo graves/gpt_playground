@@ -49,5 +49,6 @@ void printFullGPTInfo(const GPTHeader h, const GPTPartitionEntry* pe, FILE* f);
 
 /* UTILS */
 void printHex(FILE* f,const void* data,const unsigned int len);
+GPTPartitionEntry convertPartitionNameToUTF8(GPTPartitionEntry pe);
 
 #endif
