@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     }
 
     if(inputFileTable == NULL) {
-      printf("%s %s\n", "Unable to open input file:", argv[2]);
+      printf("%s %s\n", "Unable to open input file:", argv[3]);
       return 1;
     }
 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     }
 
     if(inputFileTable == NULL) {
-      printf("%s %s\n", "Unable to open input file:", argv[2]);
+      printf("%s %s\n", "Unable to open input file:", argv[3]);
       return 1;
     }
 
