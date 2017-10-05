@@ -32,9 +32,10 @@ typedef struct _GPTPartitionEntry
   unsigned char upart_guid[16];
   uint64_t first_lba;
   uint64_t last_lba;
-  uint64_t att_flags;
+  uint64_t attr_flags;
   char part_name[72];
 } GPTPartitionEntry;
+
 
 /*READ*/
 GPTHeader readGPTHeader(FILE* f);
