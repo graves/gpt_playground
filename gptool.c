@@ -74,6 +74,48 @@ int main(int argc, char *argv[])
     free(partitions);
   }
 
+  if(strcmp(argv[1], "--print-all") == 0) {
+
+    if(argc != 4) {
+      printf("%s %s %s %s %s\n", "Usage:", argv[0],
+          "--print-all","<GPT_HEADER>", "<GPT_TABLE>");
+      return 1;
+    }
+
+    FILE *inputFileHeader = NULL;
+    FILE *inputFileTable = NULL;
+    GPTHeader header;
+    GPTPartitionEntry *partitions;
+    GPTPartitionEntry partition;
+
+    inputFileHeader = fopen(argv[2], "rb");
+    inputFileTable = fopen(argv[3], "rb");
+
+    if(inputFileHeader == NULL) {
+      printf("%s %s\n", "Unable to open input file:", argv[2]);
+      return 1;
+    }
+
+    if(inputFileTable == NULL) {
+      printf("%s %s\n", "Unable to open input file:", argv[2]);
+      return 1;
+    }
+
+    header = readGPTHeader(inputFileHeader);
+    partitions = calloc(header.pent_num, sizeof(GPTPartitionEntry));
+    readGPTPartitionArray(inputFileTable, partitions, header.pent_num);
+    printGPTHeader(header, stdout);
+    printf("\n");
+
+    for(int i = 0; i < header.pent_num; i++) {
+      partition = convertPartitionNameToUTF8(partitions[i]);
+      printGPTPartitionEntry(partition, stdout);
+      printf("\n");
+    }
+
+    free(partitions);
+  }
+
   return 0;
 }
 
